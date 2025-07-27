@@ -1,0 +1,31 @@
+<div class="container">
+  <h2>Manage Posts</h2>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="post-form">
+    <input formControlName="title" placeholder="Title" />
+    <textarea formControlName="body" placeholder="Description"></textarea>
+
+    <button type="submit">
+      {{ isEditing ? 'Update Post' : 'Create Post' }}
+    </button>
+    <button type="button" *ngIf="isEditing" (click)="reset()">Cancel</button>
+  </form>
+
+  <!-- Loader -->
+  <div class="loader-wrapper" *ngIf="loading">
+    <div class="spinner"></div>
+  </div>
+
+  <ul class="post-list" *ngIf="!loading">
+    <li *ngFor="let post of posts">
+      <div>
+        <h4>{{ post.title }}</h4>
+        <p>{{ post.body }}</p>
+      </div>
+      <div class="actions">
+        <button (click)="edit(post)">Edit</button>
+        <button (click)="delete(post.id!)">Delete</button>
+      </div>
+    </li>
+  </ul>
+</div>

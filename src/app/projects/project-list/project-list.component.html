@@ -1,0 +1,41 @@
+<!-- <h3>Projects</h3>
+<form [formGroup]="form" (ngSubmit)="save()">
+  <input formControlName="name" placeholder="Project Name" />
+  <input formControlName="description" placeholder="Description" />
+  <button type="submit">{{ editingId ? 'Update' : 'Create' }}</button>
+</form>
+
+<ul>
+  <li *ngFor="let p of projects">
+    {{ p.name }} - {{ p.description }}
+    <button (click)="edit(p)">Edit</button>
+    <button (click)="delete(p.id)">Delete</button>
+  </li>
+</ul> -->
+
+<div class="container">
+  <h2>Manage Projects</h2>
+
+  <form [formGroup]="form" (ngSubmit)="save()" class="project-form">
+    <input formControlName="name" placeholder="Project Name" />
+    <textarea formControlName="description" placeholder="Description"></textarea>
+
+    <button type="submit">
+      {{ editingId ? 'Update Project' : 'Create Project' }}
+    </button>
+    <button type="button" *ngIf="editingId" (click)="reset()">Cancel</button>
+  </form>
+
+  <ul class="project-list">
+    <li *ngFor="let p of projects">
+      <div>
+        <h4>{{ p.name }}</h4>
+        <p>{{ p.description }}</p>
+      </div>
+      <div class="actions">
+        <button (click)="edit(p)">Edit</button>
+        <button (click)="delete(p.id)">Delete</button>
+      </div>
+    </li>
+  </ul>
+</div>

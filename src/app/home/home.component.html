@@ -1,0 +1,28 @@
+<!-- home.component.html -->
+<nav class="navbar">
+  <button 
+    [class.active]="activeComponent === 'project'" 
+    (click)="activeComponent = 'project'">
+    Projects
+  </button>
+  <button 
+    [class.active]="activeComponent === 'post'" 
+    (click)="activeComponent = 'post'">
+    Posts
+  </button>
+  <button 
+    [class.active]="activeComponent === 'floating'" 
+    (click)="activeComponent = 'floating'">
+    Floating Scene
+  </button>
+</nav>
+
+<div class="content">
+  <app-project-list *ngIf="activeComponent === 'project'"></app-project-list>
+  <app-post-list *ngIf="activeComponent === 'post'"></app-post-list>
+  <app-floating-scene *ngIf="activeComponent === 'floating'"></app-floating-scene>
+</div>
+
+<footer class="footer">
+  <p>© 2025 Your Company</p>
+</footer>
