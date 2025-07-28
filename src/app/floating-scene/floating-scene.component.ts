@@ -61,9 +61,11 @@ export class FloatingSceneComponent implements OnInit, OnDestroy {
   }
 
 initScene() {
-  const rect = this.canvasRef.nativeElement.getBoundingClientRect();
-  const width = rect.width;
-  const height = rect.height + 50;
+  // const rect = this.canvasRef.nativeElement.getBoundingClientRect();
+  // const width = rect.width;
+  // const height = rect.height + 50;
+  const width = this.canvasRef.nativeElement.clientWidth;
+  const height = this.canvasRef.nativeElement.clientHeight;
   const aspect = width / height;
 
   this.scene = new THREE.Scene();
@@ -218,14 +220,32 @@ initScene() {
     this.renderer.render(this.scene, this.camera);
   };
 
-  onResize = () => {
-    const width = window.innerWidth;
-    const height = window.innerHeight;
-    const aspect = width / height;
-    this.camera.left = -aspect * 5;
-    this.camera.right = aspect * 5;
-    this.camera.updateProjectionMatrix();
-    this.renderer.setSize(width, height);
-    this.render();
-  };
+  // onResize = () => {
+  //   const width = window.innerWidth;
+  //   const height = window.innerHeight;
+  //   const aspect = width / height;
+  //   this.camera.left = -aspect * 5;
+  //   this.camera.right = aspect * 5;
+  //   this.camera.updateProjectionMatrix();
+  //   this.renderer.setSize(width, height);
+  //   this.render();
+  // };
+
+onResize = () => {
+  const width = this.canvasRef.nativeElement.clientWidth;
+  const height = this.canvasRef.nativeElement.clientHeight;
+  const aspect = width / height;
+
+  const viewWidth = 10;
+  const viewHeight = viewWidth / aspect;
+
+  this.camera.left = -viewWidth / 2;
+  this.camera.right =  viewWidth / 2;
+  this.camera.top = viewHeight / 2;
+  this.camera.bottom = -viewHeight / 2;
+  this.camera.updateProjectionMatrix();
+
+  this.renderer.setSize(width, height);
+  this.render();
+};
 }
